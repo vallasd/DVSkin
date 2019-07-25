@@ -7,13 +7,12 @@
 //
 
 import Foundation
-import HGCodable
 import DVNetwork
 
 class PersonNetwork {
     
     /// Gets photos from Network.
-    static func getPersons<A: HGCodable>(completion: @escaping (DVResult<[A]>) -> ()) {
+    static func getPersons<A: DVCodable>(completion: @escaping (DVResult<[A]>) -> ()) {
         let requestData = RequestData(baseURL: DVSkin.shared.baseURL,
                                       method: HttpMethod.get,
                                       headers: [:],

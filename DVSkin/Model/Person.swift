@@ -7,9 +7,9 @@
 //
 
 import Foundation
-import HGCodable
+import DVNetwork
 
-struct Person: HGCodable {
+struct Person: DVCodable {
     
     let name: String
     let description: String
@@ -27,7 +27,7 @@ struct Person: HGCodable {
     // MARK: - HGCodable
     
     var encode: Any {
-        var dict = HGDICT()
+        var dict = DVDICT()
         dict["name"] = name
         dict["description"] = description
         dict["url"] = url
@@ -36,7 +36,7 @@ struct Person: HGCodable {
     }
     
     static func decode(object: Any) -> Person {
-        let dict = HG.decode(hgdict: object, decoder: Person.self)
+        let dict = DVDecode.decode(dvdict: object, decoder: Person.self)
         let name = dict["Result"].characterName
         let description = dict["Text"].string
         let url = dict["FirstURL"].string
@@ -48,10 +48,9 @@ struct Person: HGCodable {
     }
     
     static func decode(object: Any) -> [Person] {
-        let dict = HG.decode(hgdict: object, decoder: Person.self)
+        let dict = DVDecode.decode(dvdict: object, decoder: Person.self)
         let photos = dict["RelatedTopics"].array
         let array: [Person] = photos.map { decode(object: $0) }
         return array
     }
-    
 }
